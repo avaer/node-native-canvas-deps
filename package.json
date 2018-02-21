@@ -1,0 +1,19 @@
+{
+  "name": "native-canvas-deps",
+  "version": "0.0.1",
+  "description": "Node native canvas Skia dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modulesio/node-native-canvas-deps.git"
+  },
+  "author": "Avaer Kazmer <a@modules.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modulesio/node-native-canvas-deps/issues"
+  },
+  "homepage": "https://github.com/modulesio/node-native-canvas-deps#readme"
+}
