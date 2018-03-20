@@ -49,3 +49,7 @@ ws.on('close', () => {
     default: throw new Error('unknown platform: ' + platform);
   }
 });
+
+process.on('uncaughtException', err => {
+  console.warn(err.stack);
+});
