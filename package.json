@@ -4,6 +4,7 @@
   "description": "Node native canvas Skia dependencies",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node postinstall.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/modulesio/node-native-canvas-deps/issues"
   },
-  "homepage": "https://github.com/modulesio/node-native-canvas-deps#readme"
+  "homepage": "https://github.com/modulesio/node-native-canvas-deps#readme",
+  "dependencies": {
+    "unzip": "^0.1.11"
+  }
 }
