@@ -4,7 +4,7 @@ const os = require('os');
 const unzpr = require('unzpr');
 const rimraf = require('rimraf');
 const rs = fs.createReadStream(path.join(__dirname, 'lib.zip'));
-rs.on('ready', () => {
+rs.on('open', () => {
   const ws = rs.pipe(unzpr.Extract({
     path: __dirname,
   }));
