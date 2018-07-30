@@ -4,14 +4,14 @@ const os = require('os');
 const unzipper = require('unzipper');
 const rimraf = require('rimraf');
 
-['lib.zip', 'lib2.zip'].map(lib => {
-  const rs = fs.createReadStream(path.join(__dirname, lib));
+['lib', 'lib2'].map(lib => {
+  const rs = fs.createReadStream(path.join(__dirname, lib + '.zip'));
   rs.on('open', () => {
     const ws = rs.pipe(unzipper.Extract({
       path: __dirname,
     }));
     ws.on('close', () => {
-      rimraf(path.join(__dirname, lib), err => {
+      rimraf(path.join(__dirname, lib + '.zip'), err => {
         if (err) {
           throw err;
         }
@@ -19,54 +19,41 @@ const rimraf = require('rimraf');
       const platform = os.platform();
       switch (platform) {
         case 'win32': {
-          ['macos', 'linux', 'android', 'ios'].forEach(p => {
-            rimraf(path.join(__dirname, 'lib', p), err => {
+          ['macos', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
+            rimraf(path.join(__dirname, lib, p), err => {
               if (err) {
                 throw err;
               }
             });
-          });
-          rimraf(path.join(__dirname, 'lib2'), err => {
-            if (err) {
-              throw err;
-            }
           });
           break;
         }
         case 'darwin': {
-          ['windows', 'linux', 'android', 'ios'].forEach(p => {
-            rimraf(path.join(__dirname, 'lib', p), err => {
+          ['windows', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
+            rimraf(path.join(__dirname, lib, p), err => {
               if (err) {
                 throw err;
               }
             });
-          });
-          rimraf(path.join(__dirname, 'lib2'), err => {
-            if (err) {
-              throw err;
-            }
           });
           break;
         }
         case 'linux': {
           if (process.arch === 'x64') {
-            ['windows', 'macos', 'android', 'ios'].forEach(p => {
-              rimraf(path.join(__dirname, 'lib', p), err => {
+            ['windows', 'macos', 'android', 'ios', 'arm64'].forEach(p => {
+              rimraf(path.join(__dirname, lib, p), err => {
                 if (err) {
                   throw err;
                 }
               });
             });
-            rimraf(path.join(__dirname, 'lib2'), err => {
-              if (err) {
-                throw err;
-              }
-            });
-          } else {
-            rimraf(path.join(__dirname, 'lib'), err => {
-              if (err) {
-                throw err;
-              }
+          } else if (process.arch === 'arm64') {
+            ['windows', 'macos', 'linux', 'android', 'ios'].forEach(p => {
+              rimraf(path.join(__dirname, lib, p), err => {
+                if (err) {
+                  throw err;
+                }
+              });
             });
           }
           break;
