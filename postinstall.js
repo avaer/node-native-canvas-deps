@@ -11,7 +11,7 @@ const rimraf = require('rimraf');
       path: __dirname,
     }));
     ws.on('close', () => {
-      rimraf(path.join(__dirname, 'lib.zip'), err => {
+      rimraf(path.join(__dirname, lib), err => {
         if (err) {
           throw err;
         }
@@ -26,6 +26,11 @@ const rimraf = require('rimraf');
               }
             });
           });
+          rimraf(path.join(__dirname, 'lib2'), err => {
+            if (err) {
+              throw err;
+            }
+          });
           break;
         }
         case 'darwin': {
@@ -36,16 +41,34 @@ const rimraf = require('rimraf');
               }
             });
           });
+          rimraf(path.join(__dirname, 'lib2'), err => {
+            if (err) {
+              throw err;
+            }
+          });
           break;
         }
         case 'linux': {
-          ['windows', 'macos', 'android', 'ios'].forEach(p => {
-            rimraf(path.join(__dirname, 'lib', p), err => {
+          if (process.arch === 'x64') {
+            ['windows', 'macos', 'android', 'ios'].forEach(p => {
+              rimraf(path.join(__dirname, 'lib', p), err => {
+                if (err) {
+                  throw err;
+                }
+              });
+            });
+            rimraf(path.join(__dirname, 'lib2'), err => {
               if (err) {
                 throw err;
               }
             });
-          });
+          } else {
+            rimraf(path.join(__dirname, 'lib'), err => {
+              if (err) {
+                throw err;
+              }
+            });
+          }
           break;
         }
         default: throw new Error('unknown platform: ' + platform);
