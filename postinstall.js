@@ -20,69 +20,41 @@ const rimraf = require('rimraf');
       switch (platform) {
         case 'win32': {
           ['macos', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
-            rimraf(path.join(__dirname, 'lib', p), err => {
-              if (err) {
+            rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
+             if (err) {
                 throw err;
               }
-            });
-          });
-          rimraf(path.join(__dirname, 'lib2'), err => {
-            if (err) {
-              throw err;
-            }
+           });
           });
           break;
         }
         case 'darwin': {
           ['windows', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
-            rimraf(path.join(__dirname, 'lib', p), err => {
+            rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
               if (err) {
                 throw err;
               }
             });
-          });
-          rimraf(path.join(__dirname, 'lib2'), err => {
-            if (err) {
-              throw err;
-            }
           });
           break;
         }
         case 'linux': {
-          if (process.arch === 'x64') {
-            ['windows', 'macos', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
-              rimraf(path.join(__dirname, 'lib', p), err => {
-                if (err) {
-                  throw err;
-                }
-              });
-            });
-            rimraf(path.join(__dirname, 'lib2'), err => {
-              if (err) {
-                throw err;
-              }
-            });
-          } else {
-            rimraf(path.join(__dirname, 'lib'), err => {
-              if (err) {
-                throw err;
-              }
-            });
-          }
-          break;
-        }
-        case 'lumin': {
-          ['windows', 'macos', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
-            rimraf(path.join(__dirname, 'lib', p), err => {
+          ['windows', 'macos', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
+            rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
               if (err) {
                 throw err;
               }
             });
           });
-          rimraf(path.join(__dirname, 'lib2'), err => {
-            if (err) {
-              throw err;
-            }
+          break;
+        }
+        case 'lumin': {
+          ['windows', 'macos', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
+            rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
+              if (err) {
+                throw err;
+              }
+            });
           });
           break;
         }
