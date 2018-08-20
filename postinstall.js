@@ -4,58 +4,86 @@ const os = require('os');
 const unzipper = require('unzipper');
 const rimraf = require('rimraf');
 
-['lib', 'lib2'].map(lib => {
-  const rs = fs.createReadStream(path.join(__dirname, lib + '.zip'));
+['lib.zip', 'lib2.zip'].map(lib => {
+  const rs = fs.createReadStream(path.join(__dirname, lib));
   rs.on('open', () => {
     const ws = rs.pipe(unzipper.Extract({
       path: __dirname,
     }));
     ws.on('close', () => {
-      rimraf(path.join(__dirname, lib + '.zip'), err => {
+      rimraf(path.join(__dirname, lib), err => {
         if (err) {
           throw err;
         }
       });
-      const platform = os.platform();
+      const platform = process.env['LUMIN'] !== undefined ? 'lumin' : os.platform();
       switch (platform) {
         case 'win32': {
-          ['macos', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
-            rimraf(path.join(__dirname, lib, p), err => {
+          ['macos', 'linux', 'android', 'arm64', 'ios', 'magicleap'].forEach(p => {
+            rimraf(path.join(__dirname, 'lib', p), err => {
               if (err) {
                 throw err;
               }
             });
           });
+          rimraf(path.join(__dirname, 'lib2'), err => {
+            if (err) {
+              throw err;
+            }
+          });
           break;
         }
         case 'darwin': {
-          ['windows', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
-            rimraf(path.join(__dirname, lib, p), err => {
+          ['windows', 'linux', 'android', 'arm64', 'ios', 'magicleap'].forEach(p => {
+            rimraf(path.join(__dirname, 'lib', p), err => {
               if (err) {
                 throw err;
               }
             });
+          });
+          rimraf(path.join(__dirname, 'lib2'), err => {
+            if (err) {
+              throw err;
+            }
           });
           break;
         }
         case 'linux': {
           if (process.arch === 'x64') {
-            ['windows', 'macos', 'android', 'ios', 'arm64'].forEach(p => {
-              rimraf(path.join(__dirname, lib, p), err => {
+            ['windows', 'macos', 'android', 'arm64', 'ios', 'magicleap'].forEach(p => {
+              rimraf(path.join(__dirname, 'lib', p), err => {
                 if (err) {
                   throw err;
                 }
               });
             });
-          } else if (process.arch === 'arm64') {
-            ['windows', 'macos', 'linux', 'android', 'ios'].forEach(p => {
-              rimraf(path.join(__dirname, lib, p), err => {
-                if (err) {
-                  throw err;
-                }
-              });
+            rimraf(path.join(__dirname, 'lib2'), err => {
+              if (err) {
+                throw err;
+              }
+            });
+          } else {
+            rimraf(path.join(__dirname, 'lib'), err => {
+              if (err) {
+                throw err;
+              }
             });
           }
+          break;
+        }
+        case 'lumin': {
+          ['windows', 'macos', 'linux', 'arm64', 'ios'].forEach(p => {
+            rimraf(path.join(__dirname, 'lib', p), err => {
+              if (err) {
+                throw err;
+              }
+            });
+          });
+          rimraf(path.join(__dirname, 'lib2'), err => {
+            if (err) {
+              throw err;
+            }
+          });
           break;
         }
         default: throw new Error('unknown platform: ' + platform);
