@@ -19,7 +19,7 @@ const rimraf = require('rimraf');
       const platform = process.env['LUMIN'] !== undefined ? 'lumin' : os.platform();
       switch (platform) {
         case 'win32': {
-          ['macos', 'linux', 'android', 'arm64', 'ios', 'magicleap'].forEach(p => {
+          ['macos', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
             rimraf(path.join(__dirname, 'lib', p), err => {
               if (err) {
                 throw err;
@@ -34,7 +34,7 @@ const rimraf = require('rimraf');
           break;
         }
         case 'darwin': {
-          ['windows', 'linux', 'android', 'arm64', 'ios', 'magicleap'].forEach(p => {
+          ['windows', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
             rimraf(path.join(__dirname, 'lib', p), err => {
               if (err) {
                 throw err;
@@ -50,7 +50,7 @@ const rimraf = require('rimraf');
         }
         case 'linux': {
           if (process.arch === 'x64') {
-            ['windows', 'macos', 'android', 'arm64', 'ios', 'magicleap'].forEach(p => {
+            ['windows', 'macos', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
               rimraf(path.join(__dirname, 'lib', p), err => {
                 if (err) {
                   throw err;
@@ -72,7 +72,7 @@ const rimraf = require('rimraf');
           break;
         }
         case 'lumin': {
-          ['windows', 'macos', 'linux', 'arm64', 'ios'].forEach(p => {
+          ['windows', 'macos', 'linux', 'android', 'ios', 'arm64'].forEach(p => {
             rimraf(path.join(__dirname, 'lib', p), err => {
               if (err) {
                 throw err;
