@@ -17,6 +17,7 @@ const rimraf = require('rimraf');
         }
       });
       const platform = process.env['LUMIN'] !== undefined ? 'lumin' : os.platform();
+      const platform = process.env['ANDROID'] !== undefined ? 'android' : os.platform();
       switch (platform) {
         case 'win32': {
           ['macos', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
@@ -40,6 +41,16 @@ const rimraf = require('rimraf');
         }
         case 'linux': {
           ['windows', 'macos', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
+            rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
+              if (err) {
+                throw err;
+              }
+            });
+          });
+          break;
+        }
+        case 'android': {
+          ['windows', 'macos', 'linux', 'android', 'ios', 'magicleap'].forEach(p => {
             rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
               if (err) {
                 throw err;
