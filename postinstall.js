@@ -16,8 +16,15 @@ const rimraf = require('rimraf');
           throw err;
         }
       });
-      const platform = process.env['LUMIN'] !== undefined ? 'lumin' : os.platform();
-      const platform = process.env['ANDROID'] !== undefined ? 'android' : os.platform();
+      const platform = (() => {
+        if (process.env['LUMIN'] !== undefined) {
+          'lumin' : os.platform()
+        } else if (process.env['ANDROID'] !== undefined) {
+          return 'android';
+        } else {
+          return os.platform();
+        }
+      })();
       switch (platform) {
         case 'win32': {
           ['macos', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
