@@ -1,6 +1,6 @@
 {
   "name": "native-canvas-deps",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "description": "Node native canvas Skia dependencies",
   "main": "index.js",
   "scripts": {
