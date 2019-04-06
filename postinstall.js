@@ -17,10 +17,10 @@ const rimraf = require('rimraf');
         }
       });
       const platform = (() => {
-        if (process.env['LUMIN'] !== undefined) {
+        if (process.env['ANDROID'] !== undefined || process.env['LUMIN'] !== undefined) {
           return 'lumin';
-        } else if (process.env['ANDROID'] !== undefined) {
-          return 'android';
+        /* } else if (process.env['ANDROID'] !== undefined) {
+          return 'android'; */
         } else {
           return os.platform();
         }
