@@ -37,7 +37,7 @@ const rimraf = require('rimraf');
           break;
         }
         case 'darwin': {
-          ['windows', 'linux', 'android', 'ios', 'arm64', 'magicleap'].forEach(p => {
+          ['windows', 'linux', 'android', 'arm64', 'magicleap'].forEach(p => {
             rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
               if (err) {
                 throw err;
