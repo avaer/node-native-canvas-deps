@@ -17,7 +17,7 @@ const rimraf = require('rimraf');
         }
       });
       const platform = (() => {
-        if (process.env['ANDROID'] !== undefined) {
+        if (process.env['LUMIN'] !== undefined) {
           return 'lumin';
         } else if (process.env['ANDROID'] !== undefined) {
           return 'android';
