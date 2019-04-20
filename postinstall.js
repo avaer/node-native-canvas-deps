@@ -17,10 +17,10 @@ const rimraf = require('rimraf');
         }
       });
       const platform = (() => {
-        if (process.env['ANDROID'] !== undefined || process.env['LUMIN'] !== undefined) {
+        if (process.env['ANDROID'] !== undefined) {
           return 'lumin';
-        /* } else if (process.env['ANDROID'] !== undefined) {
-          return 'android'; */
+        } else if (process.env['ANDROID'] !== undefined) {
+          return 'android';
         } else {
           return os.platform();
         }
@@ -57,7 +57,7 @@ const rimraf = require('rimraf');
           break;
         }
         case 'android': {
-          ['windows', 'macos', 'linux', 'android', 'ios', 'magicleap'].forEach(p => {
+          ['windows', 'macos', 'linux', 'ios', 'arm64', 'magicleap'].forEach(p => {
             rimraf(path.join(__dirname, lib.replace(/\.zip$/, ''), p), err => {
               if (err) {
                 throw err;
